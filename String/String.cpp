@@ -3,13 +3,13 @@
 
 String::String(){}
 
-String* String::convertCahrArrayToString(char* str)
+String& String::convertCahrArrayToString(char* str)
 {
 	size_t len = strlen(str);
-	String *strTmp = new String;
-	strTmp->content = new char[len];
-	strcpy_s(strTmp->content, len, str);
-	strTmp->length = len;
+	String strTmp;;
+	strTmp.content = new char[len];
+	strcpy_s(strTmp.content, len, str);
+	strTmp.length = len;
 
 	return strTmp;
 }
@@ -19,9 +19,9 @@ int String::GetLength()
 	return length;
 }
 
-void String::Assign(String *str)
+void String::Assign(String &str)
 {
-	if (str == NULL || str->GetLength() <= 0)
+	if (str.GetLength() <= 0)
 	{
 		return;
 	}
@@ -31,19 +31,19 @@ void String::Assign(String *str)
 		delete this->content;
 	}
 
-	size_t str_len = str->GetLength();
+	size_t str_len = str.GetLength();
 	this->content = new char[str_len];
 	this->length = str_len;
 	
 	for (size_t i = 0; i < str_len; i++)
 	{
-		this->content[i] = str->CharAt(i);
+		this->content[i] = str.CharAt(i);
 	}
 }
 
 void String::Assign(char *str)
 {
-	String* s = convertCahrArrayToString(str);
+	String s = convertCahrArrayToString(str);
 	Assign(s);
 }
 
@@ -59,7 +59,7 @@ char String::CharAt(size_t index)
 	}
 }
 
-void String::Append(String *str)
+void String::Append(String &str)
 {
 	if (this->length <= 0 || this->content == NULL)
 	{
@@ -67,30 +67,25 @@ void String::Append(String *str)
 	}
 	else
 	{
-		size_t len = this->length + str->GetLength();
-		String *str_tmp = new String;
-		str_tmp->content = new char[len];
-		str_tmp->length = len;
-		strcpy_s(str_tmp->content, this->length, this->content);
-		strcat_s(str_tmp->content, str->length, str->content);
-		this->Assign(str_tmp);
-
-		if (str_tmp != NULL)
-		{
-			delete str_tmp;
-		}
+		size_t len = this->length + str.GetLength();
+		String strTmp;
+		strTmp.content = new char[len];
+		strTmp.length = len;
+		strcpy_s(strTmp.content, this->length, this->content);
+		strcat_s(strTmp.content, str.length, str.content);
+		this->Assign(strTmp);
 	}
 }
 
 void String::Append(char *str)
 {
-	String* s = convertCahrArrayToString(str);
+	String s = convertCahrArrayToString(str);
 	Append(s);
 }
 
-int String::Compare(String *str)
+int String::Compare(String &str)
 {
-	if (str == NULL || str->content == NULL)
+	if (str.content == NULL)
 	{
 		return 1;
 	}
@@ -98,7 +93,7 @@ int String::Compare(String *str)
 	{
 		return -1;
 	}
-	return strcmp(this->content, str->content);
+	return strcmp(this->content, str.content);
 }
 
 bool String::IsEmpty()
