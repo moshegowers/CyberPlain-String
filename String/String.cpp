@@ -3,6 +3,17 @@
 
 String::String(){}
 
+String* String::convertCahrArrayToString(char* str)
+{
+	size_t len = strlen(str);
+	String *strTmp = new String;
+	strTmp->content = new char[len];
+	strcpy_s(strTmp->content, len, str);
+	strTmp->length = len;
+
+	return strTmp;
+}
+
 int String::GetLength()
 {
 	return length;
@@ -28,6 +39,12 @@ void String::Assign(String *str)
 	{
 		this->content[i] = str->CharAt(i);
 	}
+}
+
+void String::Assign(char *str)
+{
+	String* s = convertCahrArrayToString(str);
+	Assign(s);
 }
 
 char String::CharAt(size_t index)
@@ -63,6 +80,12 @@ void String::Append(String *str)
 			delete str_tmp;
 		}
 	}
+}
+
+void String::Append(char *str)
+{
+	String* s = convertCahrArrayToString(str);
+	Append(s);
 }
 
 int String::Compare(String *str)
