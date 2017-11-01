@@ -1,11 +1,11 @@
 #include "String.h"
 #include <string.h>
 
-String::String(){}
+String::String() {}
 
 String& String::convertCahrArrayToString(char* str)
 {
-	size_t len = strlen(str);
+	size_t len = strlen(str) + 1;
 	String strTmp;;
 	strTmp.content = new char[len];
 	strcpy_s(strTmp.content, len, str);
@@ -14,27 +14,22 @@ String& String::convertCahrArrayToString(char* str)
 	return strTmp;
 }
 
-int String::GetLength()
+int String::GetLength() const
 {
 	return length;
 }
 
-void String::Assign(String &str)
+void String::Assign(const String &str)
 {
 	if (str.GetLength() <= 0)
 	{
 		return;
 	}
-	
-	if (this->content != NULL)
-	{
-		delete this->content;
-	}
 
 	size_t str_len = str.GetLength();
 	this->content = new char[str_len];
 	this->length = str_len;
-	
+
 	for (size_t i = 0; i < str_len; i++)
 	{
 		this->content[i] = str.CharAt(i);
@@ -47,7 +42,7 @@ void String::Assign(char *str)
 	Assign(s);
 }
 
-char String::CharAt(size_t index)
+char String::CharAt(size_t index) const
 {
 	if (this->length > index)
 	{
@@ -59,7 +54,7 @@ char String::CharAt(size_t index)
 	}
 }
 
-void String::Append(String &str)
+void String::Append(const String &str)
 {
 	if (this->length <= 0 || this->content == NULL)
 	{
@@ -72,7 +67,7 @@ void String::Append(String &str)
 		strTmp.content = new char[len];
 		strTmp.length = len;
 		strcpy_s(strTmp.content, this->length, this->content);
-		strcat_s(strTmp.content, str.length, str.content);
+		strcat_s(strTmp.content, strTmp.length, str.content);
 		this->Assign(strTmp);
 	}
 }
@@ -83,7 +78,7 @@ void String::Append(char *str)
 	Append(s);
 }
 
-int String::Compare(String &str)
+int String::Compare(const String &str)
 {
 	if (str.content == NULL)
 	{
