@@ -1,15 +1,22 @@
 #include "String.h"
 #include <string.h>
 
-String::String() {}
+String::String():length(0) {}
 
-String& String::convertCahrArrayToString(char* str)
+String::String(const String &string)
+{
+	length = string.length;
+	content = new char[length];
+	strcpy_s(content, length, string.content);
+}
+
+String* String::convertCahrArrayToString(char* str)
 {
 	size_t len = strlen(str) + 1;
-	String strTmp;;
-	strTmp.content = new char[len];
-	strcpy_s(strTmp.content, len, str);
-	strTmp.length = len;
+	String *strTmp = new String;
+	strTmp->content = new char[len];
+	strcpy_s(strTmp->content, len, str);
+	strTmp->length = len;
 
 	return strTmp;
 }
@@ -38,8 +45,8 @@ void String::Assign(const String &str)
 
 void String::Assign(char *str)
 {
-	String s = convertCahrArrayToString(str);
-	Assign(s);
+	String *s = convertCahrArrayToString(str);
+	Assign(*s);
 }
 
 char String::CharAt(size_t index) const
@@ -74,8 +81,8 @@ void String::Append(const String &str)
 
 void String::Append(char *str)
 {
-	String s = convertCahrArrayToString(str);
-	Append(s);
+	String *s = convertCahrArrayToString(str);
+	Append(*s);
 }
 
 int String::Compare(const String &str)
