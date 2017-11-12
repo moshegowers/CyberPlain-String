@@ -1,8 +1,9 @@
 #include "String.h"
 #include <string.h>
+#include <iostream>
 using namespace StringNamespace;
 
-String::String() {}
+String::String():length(0) {}
 
 String& String::convertCahrArrayToString(char* str)
 {
@@ -106,14 +107,24 @@ void String::Clear()
 	this->length = 0;
 }
 
-void StringNamespace::String::operator=(const String & str)
+void String::Print()
+{
+	if (this->content == NULL || this->length <= 0)
+	{
+		std::cout << "The string is null or empty";
+		return;
+	}
+	std::cout << "Hello, " << this->content << std::endl;
+}
+
+void String::operator=(const String & str)
 {
 	length = str.length;
 	content = new char[strlen(str.content)];
 	strcpy_s(content, sizeof(content), str.content);
 }
 
-void StringNamespace::String::operator+=(const String & str)
+void String::operator+=(const String & str)
 {
 	if (str.content == NULL || str.length <= 0)
 	{

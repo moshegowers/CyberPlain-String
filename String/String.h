@@ -16,6 +16,7 @@ namespace StringNamespace
 		int Compare(const String &str);
 		bool IsEmpty();
 		void Clear();
+		void Print();
 
 		friend bool operator == (const String &lhs, const String &rhs);
 		friend bool operator != (const String &lhs, const String &rhs);
