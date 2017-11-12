@@ -1,4 +1,5 @@
 #include "String.h"
+using namespace StringNamespace;
 
 void main(void)
 {

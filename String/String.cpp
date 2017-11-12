@@ -1,5 +1,6 @@
 #include "String.h"
 #include <string.h>
+using namespace StringNamespace;
 
 String::String() {}
 
