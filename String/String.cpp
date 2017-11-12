@@ -106,6 +106,33 @@ void String::Clear()
 	this->length = 0;
 }
 
+void StringNamespace::String::operator=(const String & str)
+{
+	length = str.length;
+	content = new char[strlen(str.content)];
+	strcpy_s(content, sizeof(content), str.content);
+}
+
+void StringNamespace::String::operator+=(const String & str)
+{
+	if (str.content == NULL || str.length <= 0)
+	{
+		return;
+	}
+
+	char *tmp = new char[length];
+	if (length >= 0)
+	{
+		strcpy_s(tmp, length + 1, content);
+	}
+	
+	length += str.length;
+	content = new char[length];
+	strcpy_s(content, length, tmp);
+	strcat_s(content, length, str.content);
+	
+}
+
 bool StringNamespace::operator==(const String & lhs, const String & rhs)
 {
 	return *lhs.content == *rhs.content;
