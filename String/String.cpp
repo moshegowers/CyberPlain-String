@@ -105,3 +105,13 @@ void String::Clear()
 	}
 	this->length = 0;
 }
+
+bool StringNamespace::operator==(const String & lhs, const String & rhs)
+{
+	return *lhs.content == *rhs.content;
+}
+
+bool StringNamespace::operator!=(const String & lhs, const String & rhs)
+{
+	return !(lhs == rhs);
+}

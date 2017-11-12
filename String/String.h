@@ -17,6 +17,9 @@ namespace StringNamespace
 		bool IsEmpty();
 		void Clear();
 
+		friend bool operator== (const String &lhs, const String &rhs);
+		friend bool operator!= (const String &lhs, const String &rhs);
+
 	private:
 		size_t length;
 		char *content;
