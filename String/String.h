@@ -11,19 +11,19 @@ namespace StringNamespace
 		String()
 		{
 		}
-		String<T>& convertCahrArrayToString(const T* str, size_t len)
+		String<T> *convertCahrArrayToString(const T* str, size_t len)
 		{
-			String strTmp;;
-			strTmp.content = new T[len];
+			String<T> *strTmp = new String<T>;
+			strTmp->content = new T[len];
 			if (std::is_same<wchar_t, T>::value)
 			{
-				wcscpy_s((wchar_t*)strTmp.content, len, (wchar_t*)str);
+				wcscpy_s((wchar_t*)strTmp->content, len, (wchar_t*)str);
 			}
 			else
 			{
-				strcpy_s((char*)strTmp.content, len, (char*)str);
+				strcpy_s((char*)strTmp->content, len, (char*)str);
 			}
-			strTmp.length = len;
+			strTmp->length = len;
 
 			return strTmp;
 		}
@@ -52,8 +52,8 @@ namespace StringNamespace
 
 		void Assign(T *str, size_t len)
 		{
-			String s = convertCahrArrayToString(str, len);
-			Assign(s);
+			String *s = convertCahrArrayToString(str, len);
+			Assign(*s);
 		}
 
 		T CharAt(size_t index) const
